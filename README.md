@@ -1,6 +1,18 @@
-# Gilded Rose starting position in Java
+# Gilded Rose in Java
 
-## Run the TextTest Fixture from Command-Line
+Gilded Rose is a classic refactoring kata involving a legacy inventory
+system with complex, intertwined item update rules.
+
+## Gilded Rose Kata – Baseline Setup
+
+This is the initial setup for my Gilded Rose kata implementation.
+
+At this stage, I am only preparing the project structure, so I can evolve the solution step by step. No refactoring or
+behaviour changes have been made yet.
+
+## How to run the project
+
+### Run the TextTest Fixture from Command-Line
 
 ```
 ./gradlew -q text
@@ -14,17 +26,32 @@ For e.g. 10 days:
 ./gradlew -q text --args 10
 ```
 
-You should make sure the gradle commands shown above work when you execute them in a terminal before trying to use TextTest (see below).
+## How to run tests
 
+```
+./gradlew
+```
 
-## Run the TextTest approval test that comes with this project
+## What's included in this baseline
 
-There are instructions in the [TextTest Readme](../texttests/README.md) for setting up TextTest. What's unusual for the Java version is there are two executables listed in [config.gr](../texttests/config.gr) for Java. The first uses Gradle wrapped in a python script. Uncomment these lines to use it:
+- Original kata source files kept completely untouched
+- Project structure prepared for incremental evolution
+- docs/ folder added for architecture decisions and requirements reference
+- No logic changes — existing behaviour is preserved exactly as-is
 
-    executable:${TEXTTEST_HOME}/Java/texttest_rig.py
-    interpreter:python
+## How I plan to approach the kata
 
-The other relies on your CLASSPATH being set correctly in [environment.gr](../texttests/environment.gr). Uncomment these lines to use it instead:
+I’m treating this exercise the same way I would handle a small feature request in a real project:
 
-    executable:com.gildedrose.TexttestFixture
-    interpreter:java
+- start with a clean baseline
+- add characterization tests to lock in the current behaviour
+- refactor safely
+- introduce structure only where it adds clarity
+
+I’ll evolve the design gradually as I work through the rules.
+
+## Next steps
+
+- Add characterization tests
+- Introduce a clear separation between domain logic and orchestration
+- Start shaping the update rules in a way that keeps the code readable and easy to extend
