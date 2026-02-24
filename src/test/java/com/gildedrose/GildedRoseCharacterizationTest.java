@@ -71,21 +71,21 @@ class GildedRoseCharacterizationTest {
         return Stream.of(
 
             Arguments.of(1, new ExpectedState[]{
-                ExpectedState.sellInThenQuality(9, 19),
-                ExpectedState.sellInThenQuality(4, 6),
-                ExpectedState.sellInThenQuality(-2, 18),
+                ExpectedState.sellInThenQuality(9, 18),
+                ExpectedState.sellInThenQuality(4, 5),
+                ExpectedState.sellInThenQuality(-2, 16),
                 ExpectedState.sellInThenQuality(4, 0)
             }),
 
             Arguments.of(5, new ExpectedState[]{
-                ExpectedState.sellInThenQuality(5, 15),
-                ExpectedState.sellInThenQuality(0, 2),
-                ExpectedState.sellInThenQuality(-6, 10),
+                ExpectedState.sellInThenQuality(5, 10),
+                ExpectedState.sellInThenQuality(0, 0),
+                ExpectedState.sellInThenQuality(-6, 0),
                 ExpectedState.sellInThenQuality(0, 0)
             }),
 
             Arguments.of(10, new ExpectedState[]{
-                ExpectedState.sellInThenQuality(0, 10),
+                ExpectedState.sellInThenQuality(0, 0),
                 ExpectedState.sellInThenQuality(-5, 0),
                 ExpectedState.sellInThenQuality(-11, 0),
                 ExpectedState.sellInThenQuality(-5, 0)
