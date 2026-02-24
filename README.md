@@ -1,57 +1,110 @@
-# Gilded Rose in Java
+# Gilded Rose - Java Refactoring Kata
 
-Gilded Rose is a classic refactoring kata involving a legacy inventory
-system with complex, intertwined item update rules.
+Gilded Rose is a classic refactoring kata involving a legacy inventory system
+with complex, intertwined item update rules. This implementation takes the
+original kata code and refactors it incrementally into a clean, extensible design
+without changing any existing behaviour.
 
-## Gilded Rose Kata – Baseline Setup
+---
 
-This is the initial setup for my Gilded Rose kata implementation.
+## Getting Started
 
-At this stage, I am only preparing the project structure, so I can evolve the solution step by step. No refactoring or
-behaviour changes have been made yet.
+### Prerequisites
 
-## How to run the project
+- Java 21
+- Gradle (wrapper included - no installation needed)
 
-### Run the TextTest Fixture from Command-Line
+### Run the TextTest Fixture
 
-```
+```bash
 ./gradlew -q text
 ```
 
 ### Specify Number of Days
 
-For e.g. 10 days:
-
-```
+```bash
 ./gradlew -q text --args 10
 ```
 
-## How to run tests
+### Run All Tests
+
+```bash
+./gradlew test
+```
+
+### Run a Specific Test Class
+
+```bash
+./gradlew test --tests "com.gildedrose.domain.strategy.NormalStrategyTest"
+```
+
+---
+
+## Project Structure
 
 ```
-./gradlew
+src/
+└── main/java/com/gildedrose/
+    ├── GildedRose.java                        # Entry point - delegates to use case
+    ├── Item.java                              # Original kata class - unchanged
+    ├── application/
+    │   └── UpdateQualityUseCase.java          # Orchestrates item updates
+    └── domain/
+        ├── constants/
+        │   ├── ItemNames.java                 # Item name constants
+        │   └── QualityConstants.java          # Quality floor and cap constants
+        ├── strategy/
+        │   ├── ItemUpdateStrategy.java        # Strategy interface
+        │   ├── NormalStrategy.java
+        │   ├── AgedBrieStrategy.java
+        │   ├── SulfurasStrategy.java
+        │   ├── BackstagePassStrategy.java
+        │   └── ConjuredStrategy.java
+        └── factory/
+            └── ItemStrategyFactory.java       # Resolves strategy by item name
+
+src/
+└── test/java/com/gildedrose/
+    ├── GildedRoseCharacterizationTest.java    # Locks original behaviour
+    ├── GildedRoseIntegrationTest.java         # All items across multiple days
+    ├── GildedRoseTest.java
+    ├── application/
+    │   └── UpdateQualityUseCaseTest.java
+    └── domain/
+        ├── factory/
+        │   └── ItemStrategyFactoryTest.java
+        └── strategy/
+            ├── NormalStrategyTest.java
+            ├── AgedBrieStrategyTest.java
+            ├── SulfurasStrategyTest.java
+            ├── BackstagePassStrategyTest.java
+            └── ConjuredStrategyTest.java
 ```
 
-## What's included in this baseline
+---
 
-- Original kata source files kept completely untouched
-- Project structure prepared for incremental evolution
-- docs/ folder added for architecture decisions and requirements reference
-- No logic changes — existing behaviour is preserved exactly as-is
+## Item Behaviour
 
-## How I plan to approach the kata
+| Item | Behaviour |
+|------|-----------|
+| Normal item | Degrades by 1 per day, by 2 after sell date. Quality floor 0 |
+| Aged Brie | Increases by 1 per day, by 2 after sell date. Quality cap 50 |
+| Sulfuras | Never changes. Quality fixed at 80 |
+| Backstage Passes | Increases by 1 above 10 days, by 2 within 10 days, by 3 within 5 days. Drops to 0 after concert |
+| Conjured | Degrades by 2 per day, by 4 after sell date. Quality floor 0 |
 
-I’m treating this exercise the same way I would handle a small feature request in a real project:
+---
 
-- start with a clean baseline
-- add characterization tests to lock in the current behaviour
-- refactor safely
-- introduce structure only where it adds clarity
+## Adding a New Item Type
 
-I’ll evolve the design gradually as I work through the rules.
+1. Create a new strategy class implementing `ItemUpdateStrategy`
+2. Add one line to `ItemStrategyFactory`
 
-## Next steps
+No existing code changes required.
 
-- Add characterization tests
-- Introduce a clear separation between domain logic and orchestration
-- Start shaping the update rules in a way that keeps the code readable and easy to extend
+---
+
+## Further Reading
+
+See [`docs/architecture-decisions.md`](docs/architecture-decisions.md) for the full
+design rationale, refactoring journey, and trade-offs made during this implementation.
