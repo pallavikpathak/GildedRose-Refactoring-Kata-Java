@@ -8,7 +8,7 @@ public class UpdateQualityUseCase {
 
     public void updateQuality(Item[] items) {
         for (Item item : items) {
-            itemStrategyFactory.getStrategy(item).update(item);
+            itemStrategyFactory.getStrategy(item.name).update(item);
         }
     }
 }

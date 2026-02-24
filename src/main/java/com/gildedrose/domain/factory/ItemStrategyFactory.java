@@ -1,15 +1,14 @@
 package com.gildedrose.domain.factory;
 
-import com.gildedrose.Item;
 import com.gildedrose.domain.strategy.*;
 
 import static com.gildedrose.domain.constants.ItemNames.*;
 
 public class ItemStrategyFactory {
 
-    public ItemUpdateStrategy getStrategy(Item item) {
+    public ItemUpdateStrategy getStrategy(String itemName) {
 
-        return switch (item.name) {
+        return switch (itemName) {
             case SULFURAS -> new SulfurasStrategy();
             case BACKSTAGE_PASSES -> new BackstagePassStrategy();
             case AGED_BRIE -> new AgedBrieStrategy();
