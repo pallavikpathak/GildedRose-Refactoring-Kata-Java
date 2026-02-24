@@ -2,13 +2,13 @@ package com.gildedrose.domain.strategy;
 
 import com.gildedrose.Item;
 
+import static com.gildedrose.domain.constants.QualityConstants.MIN_QUALITY;
+
 public class ConjuredStrategy implements ItemUpdateStrategy {
     @Override
     public void update(Item item) {
-        item.quality = Math.max(0, item.quality - 2);
         item.sellIn--;
-        if (item.sellIn < 0) {
-            item.quality = Math.max(0, item.quality - 2);
-        }
+        int decreaseQuality = item.sellIn < 0 ? 4 : 2;
+        item.quality = Math.max(MIN_QUALITY, item.quality - decreaseQuality);
     }
 }
