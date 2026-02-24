@@ -1,17 +1,27 @@
 package com.gildedrose;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.assertj.core.api.Assertions.assertThat;
 class GildedRoseTest {
 
     @Test
-    void foo() {
-        Item[] items = new Item[] { new Item("foo", 0, 0) };
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertEquals("fixme", app.items[0].name);
+    @DisplayName("updates all items on each day")
+    void updatesAllItems() {
+        Item[] items = {new Item("Elixir of the Mongoose", 10, 20)};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        assertThat(items[0].quality).isEqualTo(19);
     }
 
+    @Test
+    @DisplayName("updateQuality delegates to use case")
+    void delegatesToUseCase() {
+        Item[] items = {new Item("Elixir of the Mongoose", 10, 20)};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        gildedRose.updateQuality();
+        assertThat(items[0].quality).isEqualTo(18);
+    }
 }
