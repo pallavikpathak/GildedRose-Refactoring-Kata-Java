@@ -11,55 +11,53 @@ class GildedRose {
         this.items = items;
     }
 
+    private static void updateNormal(Item item) {
+        if (item.quality > 0) {
+            item.quality--;
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0 && item.quality > 0) {
+            item.quality--;
+        }
+    }
+
+    private static void updateAgedBrie(Item item) {
+        if (item.quality < 50) {
+            item.quality++;
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0 && item.quality < 50) {
+            item.quality++;
+
+        }
+    }
+
+    private static void updateBackStagePass(Item item) {
+        if (item.quality < 50) {
+            item.quality++;
+            if (item.sellIn < 11 && item.quality < 50) {
+                item.quality++;
+            }
+            if (item.sellIn < 6 && item.quality < 50) {
+                item.quality++;
+            }
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals(AGED_BRIE)
-                    && !items[i].name.equals(BACKSTAGE_PASSES)) {
-                if (items[i].quality > 0) {
-                    if (!items[i].name.equals(SULFURAS)) {
-                        items[i].quality = items[i].quality - 1;
-                    }
+        for (Item item : items) {
+
+            switch (item.name) {
+                case SULFURAS -> {
+                    //quality and sell in never change
                 }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
-
-                    if (items[i].name.equals(BACKSTAGE_PASSES)) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!items[i].name.equals(SULFURAS)) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
-
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals(AGED_BRIE)) {
-                    if (!items[i].name.equals(BACKSTAGE_PASSES)) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals(SULFURAS)) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
+                case BACKSTAGE_PASSES -> updateBackStagePass(item);
+                case AGED_BRIE -> updateAgedBrie(item);
+                default -> updateNormal(item);
             }
         }
     }
