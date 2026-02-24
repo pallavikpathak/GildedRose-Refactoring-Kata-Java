@@ -13,6 +13,7 @@ public class ItemStrategyFactory {
             case SULFURAS -> new SulfurasStrategy();
             case BACKSTAGE_PASSES -> new BackstagePassStrategy();
             case AGED_BRIE -> new AgedBrieStrategy();
+            case CONJURED -> new ConjuredStrategy();
             default -> new NormalStrategy();
         };
     }
